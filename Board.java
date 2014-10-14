@@ -30,6 +30,7 @@ public class Board {
 	}
 	
 	// Returns true if the board is solved.
+	@SuppressWarnings("null")
 	public boolean isSolved()
 	{
 		int[] line = null, column = null;
