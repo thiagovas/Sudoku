@@ -1,4 +1,3 @@
-import java.util.*;
 
 public class Board {
 	private int[][] _board;
@@ -23,7 +22,7 @@ public class Board {
 	/* Returns true if there is at least one zero in the array. */
 	public boolean isThereZero(int[] input)
 	{
-		/*  */
+		/* I use this method to check if my hash table has at least one zero. */
 		for(int i = 0; i < 9; i++)
 			if(input[i] == 0) return true;
 		return false;
@@ -33,7 +32,7 @@ public class Board {
 	@SuppressWarnings("null")
 	public boolean isSolved()
 	{
-		int[] line = null, column = null;
+		int[] line = null, column = null; // Hash tables
 		
 		// Checking if there is repeated numbers in the lines and columns.
 		for(int i = 0; i < 9; i++)
@@ -47,11 +46,13 @@ public class Board {
 				line[this._board[i][j]]=1;
 				column[this._board[j][i]]=1;
 			}
+			/* If I find at least one zero in any hash table,
+			* I guaranteed have at least one repeated number in one line or column. */
 			if(isThereZero(line) || isThereZero(column)) return false;
 		}
 		
 		// Now checking if the little squares don't have repeated numbers.
-		int[] square1=null, square2=null, square3=null;
+		int[] square1=null, square2=null, square3=null; // Hash tables
 		for(int i = 0; i < 9; i++)
 		{
 			if(i%3==0)
@@ -67,7 +68,9 @@ public class Board {
 				square2[this._board[i][j+3]]=1;
 				square3[this._board[i][j+6]]=1;
 			}
-			
+
+			/* If I find at least one zero in any hash table,
+			 * I guaranteed have at least one repeated number in one little square of the board. */
 			if(i==2 || i==5)
 				if(isThereZero(square1) || isThereZero(square2) || isThereZero(square3))
 					return false;
