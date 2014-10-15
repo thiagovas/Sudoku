@@ -1,9 +1,21 @@
 
 public class Board {
-	private int[][] _board;
+	protected int[][] _board;
 	
 	public Board()
 	{ reset(); }
+	
+	public Board(int[][] matrix) throws Exception
+	{
+		if(matrix.length!=9) throw new Exception("Matrix with wrong size.");
+		for(int i = 0; i < 9; i++)
+		{
+			if(matrix[i].length!=9) throw new Exception("Matrix with wrong size.");
+			for(int j=0; j < 9; j++)
+				if(!isValueValid(matrix[i][j])) throw new Exception("Invalid value in the matrix.");
+		}
+		this._board = matrix;
+	}
 	
 	public void reset()
 	{
@@ -38,10 +50,11 @@ public class Board {
 		return (value<10 && value>0);
 	}
 	
-	private void resetAux(int[] aux)
+	private int[] resetAux(int[] aux)
 	{
 		aux = new int[9];
 		for(int i = 0; i < 9; i++) aux[i]=0;
+		return aux;
 	}
 	
 	/* Returns true if there is at least one zero in the array. */
@@ -62,14 +75,14 @@ public class Board {
 		// Checking if there is repeated numbers in the lines and columns.
 		for(int i = 0; i < 9; i++)
 		{
-			resetAux(line);
-			resetAux(column);
+			line=resetAux(line);
+			column=resetAux(column);
 			for(int j = 0; j < 9; j++)
 			{
 				if(this._board[i][j] == -1) return false;
-				if(isValueValid(this._board[i][j])) return false;
-				line[this._board[i][j]]=1;
-				column[this._board[j][i]]=1;
+				if(!isValueValid(this._board[i][j])) return false;
+				line[this._board[i][j]-1]=1;
+				column[this._board[j][i]-1]=1;
 			}
 			/* If I find at least one zero in any hash table,
 			* I guaranteed have at least one repeated number in one line or column. */
@@ -82,16 +95,16 @@ public class Board {
 		{
 			if(i%3==0)
 			{
-				resetAux(square1);
-				resetAux(square2);
-				resetAux(square3);
+				square1=resetAux(square1);
+				square2=resetAux(square2);
+				square3=resetAux(square3);
 			}
 			
 			for(int j = 0; j < 3; j++)
 			{
-				square1[this._board[i][j]]=1;
-				square2[this._board[i][j+3]]=1;
-				square3[this._board[i][j+6]]=1;
+				square1[this._board[i][j]-1]=1;
+				square2[this._board[i][j+3]-1]=1;
+				square3[this._board[i][j+6]-1]=1;
 			}
 
 			/* If I find at least one zero in any hash table,
