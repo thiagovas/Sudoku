@@ -1,11 +1,6 @@
 import java.util.*;
 
 public class Generator {
-
-}
-import java.util.*;
-
-public class Generator {
 	// Developed using http://arxiv.org/abs/1201.0749 ideas.
 	private int[][] _base = {{1, 2, 3, 4, 5, 6, 7, 8, 9},
 				{4, 5, 6, 7, 8, 9, 1, 2, 3},
