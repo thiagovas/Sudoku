@@ -1,4 +1,4 @@
-Enter file contents hereimport java.awt.GridLayout;
+//Enter file contents hereimport java.awt.GridLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
