@@ -17,6 +17,10 @@ public class Board {
 		this._board = matrix;
 	}
 	
+	public void setBoard(int[][] matrix){
+		_board = matrix;
+	}
+	
 	public void reset()
 	{
 		this._board = new int[9][9];
@@ -79,7 +83,8 @@ public class Board {
 			column=resetAux(column);
 			for(int j = 0; j < 9; j++)
 			{
-				if(this._board[i][j] == -1) return false;
+				if(this._board[i][j] < 1 || this._board[i][j] > 9) return false;
+				if(this._board[j][i] < 1 || this._board[j][i] > 9) return false;
 				if(!isValueValid(this._board[i][j])) return false;
 				line[this._board[i][j]-1]=1;
 				column[this._board[j][i]-1]=1;
@@ -114,5 +119,16 @@ public class Board {
 					return false;
 		}
 		return !(isThereZero(square1) || isThereZero(square2) || isThereZero(square3));
+	}
+	
+	public void printBoard()
+	{
+		if(this._board.length == 0) System.out.println("Board was not initialized.");
+		else for(int i = 0; i < 9; i++)
+		{
+			for(int j = 0; j < 9; j++)
+				System.out.printf("%d ", this._board[i][j]);
+			System.out.print("\n");
+		}
 	}
 }
